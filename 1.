@@ -45,6 +45,7 @@ int main()
 	case 12: cout << "Декабрь, Зима" << endl; break;
 		}
 		return 0;
+		_getch();
 }
 
 
