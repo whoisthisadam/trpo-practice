@@ -50,6 +50,7 @@ int main()
 		}
 		case 4:
 		{
+			cout << "Counts how many symbols of your number is in current integer array" << endl;
 			int size; int userNumber;
 		    cout << "Enter size of array" << endl; cin >> size; int* arr = createArray(size); fillArray(arr, size);
 		    cout << "Your array:"; printArray(arr, size);
@@ -60,6 +61,7 @@ int main()
 		}
 		case 5:
 		{
+			cout << "Counts how many symbols of your number is in current string array" << endl;
 			int size; int userNumber;
 			cout << "Enter size of array" << " "; cin >> size;
 			int* arr = createArray(size); fillArray(arr, size);
