@@ -7,7 +7,7 @@ int* createArray(int size);
 void fillArray(int* arr, int size);
 void printArray(int* arr, int size);
 int numberOfUsersElement(int* arr, int size, int UserElement);
-string firstNSymbolsToString(long int number, int amount);
+string firstNSymbolsToString(int number, int amount);
 string toStr(int number);
 string toStr(double number);
 string toStr(long int number);
@@ -15,6 +15,7 @@ int countsUsersElement(int* arr, int size, int userNum);
 int countsUsersElement(string* arr, int size, string userNum);
 string* arrayString(int *arr, int size);
 void printArray(string* arr, int size);
+string toStr(double numberDouble);
 int main()
 {
 	while (1)
@@ -35,10 +36,7 @@ int main()
 		case 2: 
 		{
 			cout << "Converting double number to string" << endl;
-			double number2;
-			cout << "Number="; cin >> number2;
-			cout << "Number in string:" << toStr(number2) << endl;
-			break;
+			double number; cout << "Number(double)="; cin >> number; cout << "Number in string:" << toStr(number) << endl; break;
         }
 		case 3:
 		{
@@ -108,8 +106,9 @@ int numberOfUsersElement(int* arr, int size, int UserElement)
 	}
 	return counter;
 }
-string firstNSymbolsToString(long int number, int amount)
+string firstNSymbolsToString(int number, int amount)
 {
+	if (number < 0)number = -number;
 	while (number >= pow(10, amount))
 	{
 		number = number / 10;
@@ -117,21 +116,63 @@ string firstNSymbolsToString(long int number, int amount)
 	string firstAmountOfNumber=toStr(number);
 	return firstAmountOfNumber;
 }
-string toStr(int number)
+string toStr(int numberInt)
 {
-	string NumberString = to_string(number);
-	return NumberString;
+	int numberOfSymbols = 1, i = 0;
+	string numberString;
+	if (numberInt == 0)
+	{
+		numberString = "0";
+		return numberString;
+	}
+	if (numberInt < 0)
+	{
+		numberString += "-";
+		numberInt *= -1;
+	}
+	short oneSymbol;
+	int lenght = numberInt;
+	while ((lenght /= 10) > 0)
+		numberOfSymbols++;
+	int* array = new int[numberOfSymbols];
+
+	while (numberInt >= 1)
+	{
+		oneSymbol = numberInt % 10;
+		numberInt = numberInt / 10;
+		array[i] = oneSymbol;
+		i++;
+	}
+	for (int i = numberOfSymbols - 1; i > -1; --i)
+	{
+		numberString += (char)array[i] + 48;
+	}
+	delete[] array;
+	return numberString;
 }
-string toStr(double number)
+string toStr(double numberDouble)
 {
-	string NumberString = to_string(number);
-	return NumberString;
+	string numberString;
+	if (numberDouble < 0)
+	{
+		numberString += '-';
+		numberDouble = -numberDouble;
+	}
+	if (numberDouble == 0)
+	{
+		numberString = "0";
+		return numberString;
+	}
+	int intPartOfNumber = (int)numberDouble;
+	double fractPartOfNumber = numberDouble - intPartOfNumber;
+	string intPart = toStr(intPartOfNumber);
+	fractPartOfNumber *= 10000;
+	int fractPartOfNumber1 = (int)fractPartOfNumber;
+	string fractPart = toStr(fractPartOfNumber1);
+	numberString += intPart + "." + fractPart;
+	return numberString;
 }
-string toStr(long int number)
-{
-	string NumberString = to_string(number);
-	return NumberString;
-}
+
 int countsUsersElement(int* arr, int size, int userNum)
 {
 	int counter = 0;
